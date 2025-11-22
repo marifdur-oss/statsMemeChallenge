@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Selection Bias &amp; Missing Data Challenge - Part 2</title>
+<title>The Meme Challenge</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,55 +20,21 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
 <script src="index_files/libs/clipboard/clipboard.min.js"></script>
 <script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="index_files/libs/quarto-html/popper.min.js"></script>
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="index_files/libs/quarto-html/anchor.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-a74871fe4945b66d259aafc266475145.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -81,8 +47,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Selection Bias &amp; Missing Data Challenge - Part 2</h1>
-<p class="subtitle lead">Creating a Statistics Meme: Visualizing Selection Bias</p>
+<h1 class="title">The Meme Challenge</h1>
+<p class="subtitle lead">Selection Bias Visualization</p>
 </div>
 
 
@@ -99,243 +65,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="selection-bias-missing-data-challenge---part-2" class="level1">
-<h1>🎨 Selection Bias &amp; Missing Data Challenge - Part 2</h1>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-📊 Challenge Requirements
+<section id="the-meme-challenge" class="level1">
+<h1>The Meme Challenge</h1>
+<section id="the-four-panel-meme" class="level2">
+<h2 class="anchored" data-anchor-id="the-four-panel-meme">The Four-Panel Meme</h2>
+<div id="create-meme" class="cell" data-fig-height="6" data-fig-width="12" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>S-masked data saved as NumPy array (s_masked_data.npy) and CSV (s_masked_data.csv)</code></pre>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong>Your Task:</strong> Create a four-panel statistics meme demonstrating selection bias using your original image and stippled version from <a href="https://flyaflya.github.io/stippleChallenge/">Part 1</a>.</p>
-<p><strong>Prerequisites:</strong> Completed <a href="https://flyaflya.github.io/stippleChallenge/">Part 1</a> with:</p>
-<ol type="1">
-<li>Your original image file</li>
-<li>Your stippled image (numpy array or R matrix)</li>
-<li>Image dimensions (height and width)</li>
-</ol>
-<p><strong>Deliverables:</strong></p>
-<ol type="1">
-<li>Four-panel meme (1×4 or 2×2 layout) with labels: Reality, Your Model, Selection Bias, Estimate</li>
-<li>Code (Python or R) that generates the meme</li>
-<li>GitHub Pages site named “statsMemeChallenge” with your meme and explanation</li>
-</ol>
-<p><strong>Repository Information:</strong></p>
-<ul>
-<li><strong>Source/Starter File:</strong> Available in the main repository at <a href="https://github.com/flyaflya/statsMemeChallenge">https://github.com/flyaflya/statsMemeChallenge</a></li>
-<li><strong>Challenge Read Online:</strong> View the challenge instructions at <a href="https://flyaflya.github.io/statsMemeChallenge">https://flyaflya.github.io/statsMemeChallenge</a></li>
-<li><strong>Your Submission:</strong> Fork this challenge and create your GitHub Pages site at <code>https://[your-username].github.io/statsMemeChallenge/</code></li>
-</ul>
-</div>
-</div>
-<section id="the-problem-visualizing-selection-bias" class="level2">
-<h2 class="anchored" data-anchor-id="the-problem-visualizing-selection-bias">The Problem: Visualizing Selection Bias</h2>
-<p>Selection bias occurs when observed data isn’t representative of the population. Your meme will show:</p>
-<ul>
-<li><strong>Reality</strong>: Your original image (truth)</li>
-<li><strong>Your Model</strong>: Your stippled image (representation)</li>
-<li><strong>Selection Bias</strong>: A bold letter “S” (systematic missing data pattern)</li>
-<li><strong>Estimate</strong>: Stippled image with “S” mask applied (biased estimate)</li>
-</ul>
-<p><strong>Key Concept:</strong> Images are simply matrices—2D arrays where each value represents a pixel (0.0 = black, 1.0 = white). Your stippled image is a matrix with black dots (data points) on a white background. Selection bias removes some of these pixels (data points) in a systematic pattern (the “S”), creating a biased estimate. You’ll use image composition tools (matplotlib in Python, imager in R) to arrange these matrices into a memorable visualization.</p>
-</section>
-<section id="exemplar" class="level2">
-<h2 class="anchored" data-anchor-id="exemplar">Exemplar</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="statistics_meme.png" class="img-fluid figure-img"></p>
-<figcaption>Exemplar statistics meme showing the four-panel structure: Reality (original image), Your Model (stippled version), Selection Bias (letter S), and Estimate (masked stippled image)</figcaption>
+<p><img src="meme_4panel.png" class="img-fluid figure-img"></p>
+<figcaption>The four-panel meme showing selection bias</figcaption>
 </figure>
 </div>
-<p><strong>Your Goal:</strong> Recreate this structure using <strong>your own</strong> original and stippled images from <a href="https://flyaflya.github.io/stippleChallenge/">Part 1</a>.</p>
 </section>
-<section id="why-this-matters" class="level2">
-<h2 class="anchored" data-anchor-id="why-this-matters">Why This Matters</h2>
-<p>This exercise is fundamentally about <strong>walking AI through a process</strong> to create valuable output. You’re not just coding—you’re collaborating with AI to transform abstract statistical concepts into a memorable visual artifact. The meme you create will serve as a mental anchor: whenever you think about selection bias in the future, you’ll ask yourself: <strong>“Does my sample match my population of interest?”</strong> This visualization will stick with you for the rest of your life, making it easier to recognize and address selection bias in real-world data analysis.</p>
-</section>
-<section id="getting-started-repository-setup" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started-repository-setup">Getting Started: Repository Setup 🚀</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-📁 Repository Setup Instructions
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Step 1:</strong> Fork the starter repository:</p>
-<ul>
-<li>Navigate to <a href="https://github.com/flyaflya/statsMemeChallenge">https://github.com/flyaflya/statsMemeChallenge</a></li>
-<li>Fork the repository to your GitHub account (this creates <code>https://github.com/[your-username]/statsMemeChallenge</code>)</li>
-</ul>
-<p><strong>Step 2:</strong> Clone your forked repository locally using Cursor (or VS Code)</p>
-<p><strong>Step 3:</strong> Set up GitHub Pages:</p>
-<ul>
-<li>Go to your repository settings (click the “Settings” tab in your GitHub repository)</li>
-<li>Scroll down to the “Pages” section in the left sidebar</li>
-<li>Under “Source”, select “Deploy from a branch”</li>
-<li>Choose “main” branch and “/ (root)” folder</li>
-<li>Click “Save”</li>
-<li>Your site will be available at: <code>https://[your-username].github.io/statsMemeChallenge/</code></li>
-<li><strong>Note:</strong> It may take a few minutes for the site to become available after enabling Pages</li>
-</ul>
-<p><strong>Step 4:</strong> You’re ready to start! Use the <code>index.qmd</code> file as your starting point.</p>
-</div>
-</div>
-</section>
-<section id="implementation-guide" class="level2">
-<h2 class="anchored" data-anchor-id="implementation-guide">Implementation Guide</h2>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-📝 Code Visibility in Final HTML
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Important:</strong> When you create your final <code>index.qmd</code> file, use <code>echo: false</code> for all code chunks that generate the meme. The rendered HTML should show only the meme image and your explanation, not the code. The code should still be in the <code>.qmd</code> file (so it can be rendered), but it won’t be displayed in the HTML output.</p>
-</div>
-</div>
-<section id="step-1-load-your-images" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-load-your-images">Step 1: Load Your Images</h3>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">R</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load original image</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>original_img <span class="op">=</span> Image.<span class="bu">open</span>(<span class="st">'your_image.jpg'</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> original_img.mode <span class="op">!=</span> <span class="st">'L'</span>:</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    original_img <span class="op">=</span> original_img.convert(<span class="st">'L'</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>original_array <span class="op">=</span> np.array(original_img, dtype<span class="op">=</span>np.float32) <span class="op">/</span> <span class="fl">255.0</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Load stippled image (from Part 1 - see https://flyaflya.github.io/stippleChallenge/)</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>stipple_array <span class="op">=</span> np.load(<span class="st">'stippleImage.npy'</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Original: </span><span class="sc">{</span>original_array<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">, Stipple: </span><span class="sc">{</span>stipple_array<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(imager)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load original image</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>original_img <span class="ot">&lt;-</span> <span class="fu">load.image</span>(<span class="st">'your_image.jpg'</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">dim</span>(original_img)[<span class="dv">3</span>] <span class="sc">==</span> <span class="dv">3</span>) {</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  original_img <span class="ot">&lt;-</span> <span class="fu">grayscale</span>(original_img)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to matrix [h, w] and normalize</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>arr <span class="ot">&lt;-</span> <span class="fu">as.array</span>(original_img)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>original_array <span class="ot">&lt;-</span> <span class="fu">t</span>(arr[,,<span class="dv">1</span>,<span class="dv">1</span>]) <span class="sc">/</span> <span class="fu">max</span>(arr)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Load stippled image (from Part 1 - see https://flyaflya.github.io/stippleChallenge/)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust based on how you saved it - could be .RData, .rds, or regenerate</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># stipple_array &lt;- readRDS('stippleImage.rds')</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original dimensions:"</span>, <span class="fu">dim</span>(original_array), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="step-2-create-the-block-letter-s" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-create-the-block-letter-s">Step 2: Create the Block Letter “S”</h3>
-<p>Create a matrix matching your image dimensions with a bold letter “S” rendered as black pixels on a white background.</p>
-<p><strong>Hints:</strong></p>
-<ul>
-<li>Use image drawing libraries to render text (PIL/Pillow in Python, <code>magick</code> in R)</li>
-<li>Create a white background matrix matching your image dimensions (height × width)</li>
-<li>Render a bold letter “S” centered in the image (try 80-90% of image height for font size)</li>
-<li>Convert the result to a matrix with values in [0, 1] range (0.0 = black, 1.0 = white)</li>
-<li>The “S” should be clearly visible and fill most of the image space</li>
-</ul>
-</section>
-<section id="step-3-create-the-masked-estimate" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-create-the-masked-estimate">Step 3: Create the Masked Estimate</h3>
-<p>Your stippled image is a matrix where black dots (0.0) represent data points and white (1.0) is background. The “S” matrix shows where selection bias occurs (black “S” = missing data). To create the masked estimate, remove stipple points (set to white) wherever the “S” is black.</p>
-<p><strong>Hints:</strong></p>
-<ul>
-<li>Create a binary mask by thresholding the “S” image (e.g., pixels &lt; 0.5 are part of the “S”)</li>
-<li>Apply the mask to your stippled image: where the “S” is black, set those pixels to white (1.0)</li>
-<li>Where the “S” is white, keep the original stipple values</li>
-<li>This creates the visual effect of “missing data” in the shape of the “S”</li>
-<li>Use conditional assignment or boolean masking (e.g., <code>np.where()</code> in Python, <code>ifelse()</code> in R)</li>
-</ul>
-</section>
-<section id="step-4-assemble-the-four-panel-meme" class="level3">
-<h3 class="anchored" data-anchor-id="step-4-assemble-the-four-panel-meme">Step 4: Assemble the Four-Panel Meme</h3>
-<p>Use the image composition capabilities of matplotlib (Python) or imager (R) to arrange your four matrices as panels in a single figure.</p>
-<p><strong>Hints:</strong></p>
-<ul>
-<li>Create a multi-panel layout (1×4 for horizontal, 2×2 for grid)</li>
-<li>Display each matrix as a grayscale image: original, stippled, “S”, and masked stippled</li>
-<li>Add clear labels: “Reality”, “Your Model”, “Selection Bias”, “Estimate”</li>
-<li>Use minimal spacing between panels for a clean, professional look</li>
-<li>Consider a light background color (like pink) to make panels stand out</li>
-<li>Save with high DPI (150-300) for quality output</li>
-<li>In Python: use <code>plt.subplots()</code> and <code>imshow()</code> for each panel</li>
-<li>In R: use <code>par(mfrow = ...)</code> and <code>plot()</code> with imager’s <code>as.cimg()</code> to convert matrices</li>
-</ul>
-</section>
-</section>
-<section id="tips-for-success" class="level2">
-<h2 class="anchored" data-anchor-id="tips-for-success">Tips for Success</h2>
-<ol type="1">
-<li><strong>Font Selection</strong>: Use bold fonts (Arial Bold, DejaVu Sans Bold) for the “S”</li>
-<li><strong>Threshold Tuning</strong>: Adjust <code>threshold</code> (typically 0.5) for clean mask edges</li>
-<li><strong>Spacing</strong>: Minimize gaps between panels (<code>wspace=0</code>, <code>hspace=0</code>)</li>
-<li><strong>Background</strong>: Light pink background helps panels stand out</li>
-<li><strong>Save Quality</strong>: Use DPI 150-300 for crisp output</li>
-<li><strong>Layout Choice</strong>: 1×4 for wide images, 2×2 for square/tall images</li>
-</ol>
-</section>
-<section id="submission-requirements" class="level2">
-<h2 class="anchored" data-anchor-id="submission-requirements">Submission Requirements</h2>
-<p><strong>Important:</strong> Your final GitHub Pages site should be a clean, professional presentation that focuses on the meme and explanation, not the code.</p>
-<p><strong>Repository Contents:</strong></p>
-<ul class="task-list">
-<li><label><input type="checkbox"><code>index.qmd</code> file with your code to generate the meme</label></li>
-<li><label><input type="checkbox">Any supporting code files (Python <code>.py</code> files or R scripts) that your <code>index.qmd</code> references</label></li>
-<li><label><input type="checkbox">Your original image and stippled image files (or <code>.npy</code>/<code>.rds</code> files) needed to generate the meme</label></li>
-<li><label><input type="checkbox">Rendered HTML output (generated by rendering the <code>index.qmd</code> file)</label></li>
-</ul>
-<p><strong>HTML Output Requirements:</strong></p>
-<ul class="task-list">
-<li><label><input type="checkbox"><strong>Code should NOT be visible</strong> in the rendered HTML (use <code>echo: false</code> for code chunks that generate the meme)</label></li>
-<li><label><input type="checkbox">The HTML should display <strong>only the four-panel meme image</strong></label></li>
-<li><label><input type="checkbox">Include a <strong>brief explanation</strong> of selection bias and how your meme demonstrates it</label></li>
-<li><label><input type="checkbox">Professional, clean presentation suitable for sharing</label></li>
-</ul>
-<p><strong>Submission Checklist:</strong></p>
-<ul class="task-list">
-<li><label><input type="checkbox">All four panels: Reality, Your Model, Selection Bias, Estimate</label></li>
-<li><label><input type="checkbox">Clear labels on each panel</label></li>
-<li><label><input type="checkbox">Bold, properly-sized “S” letter</label></li>
-<li><label><input type="checkbox">Masked estimate correctly removes stipples within “S”</label></li>
-<li><label><input type="checkbox">Clean layout with minimal spacing</label></li>
-<li><label><input type="checkbox">Code runs without errors and generates the meme</label></li>
-<li><label><input type="checkbox"><code>index.qmd</code> file in repository with <code>echo: false</code> for meme generation code</label></li>
-<li><label><input type="checkbox">Supporting code files (if any) included in repository</label></li>
-<li><label><input type="checkbox">Document rendered to HTML successfully (meme generated, code hidden)</label></li>
-<li><label><input type="checkbox">HTML files uploaded to your repository</label></li>
-<li><label><input type="checkbox">GitHub Pages enabled and working</label></li>
-<li><label><input type="checkbox">Site accessible at <code>https://[your-username].github.io/statsMemeChallenge/</code></label></li>
-<li><label><input type="checkbox">Final site shows only the meme and explanation (no visible code)</label></li>
-<li><label><input type="checkbox">Brief explanation of selection bias included in HTML</label></li>
-</ul>
-<p><strong>Remember:</strong> Create a memorable, educational visualization that helps others understand selection bias. This is about more than completing an assignment—it’s about building a lasting understanding through creative collaboration with AI.</p>
+<section id="explanation-of-selection-bias" class="level2">
+<h2 class="anchored" data-anchor-id="explanation-of-selection-bias">Explanation of Selection Bias</h2>
+<p>Selection bias happens when the data we use is not representative of the population we care about. In my meme, the S shape removes part of the image before the model sees it, so the final output becomes distorted. This shows how biased samples can destroy the accuracy of our conclusions.</p>
 </section>
 </section>
 
@@ -392,13 +140,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
